@@ -23,7 +23,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.static(path.join(__dirname, '/public'))); //server pra reconhecer arquivos estaticos
 
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
@@ -35,7 +35,7 @@ app.use(function(req, res, next) {
   // TODO gerar uma pagina 404
   res.status(404).send('Nao foi possivel encontrar essa rota.');
 });
-
+//especifica a porta utilizada
 app.listen(PORT, () => {
   console.log(`Running in http://localhost:${PORT}`);
 })
