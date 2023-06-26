@@ -1,6 +1,6 @@
 const express = require('express')
 const Router = express.Router()
-
+const User = require('../models/users')
 /**
  * Existe uma rota /auth
  */
@@ -16,11 +16,22 @@ Router.get('/signup', (req, res) =>{
 })
 
 Router.post('/login', (req, res) =>{
+    console.log(User)
+
     res.send('Email:'+req.body.LoginEmail+'\tSenha:'+req.body.LoginSenha)
 })
 
 Router.post('/signup', (req, res) =>{
-    res.send('Nome:' + req.body.CadNome + '\tEmail:' +req.body.CadEmail + 'Senha:' + req.body.CadSenha)
+      
+    User.create({
+        nome: req.body.CadNome,
+        email: req.body.CadEmail,
+        senha: req.body.CadSenha
+    }).then(function(){
+       res.send("Usuario criado") 
+    }).catch(function(erro){
+        res.send("Houve um erro"+ erro)
+    })
 })
 
 

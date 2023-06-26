@@ -7,7 +7,7 @@ const bodyParser = require('body-parser')
 
 
 const authRouter = require('./routes/auth')
-const usersRouter = require('./routes/users')
+// const usersRouter = require('./routes/users')
 
 require('./models/database')
 
@@ -34,7 +34,7 @@ app.use(bodyParser.json())
 
 app.use('/auth', authRouter)
 //Rota que fazem parte de /users
-app.use('/users', usersRouter)
+// app.use('/users', usersRouter)
 // app.use('/auth', bodyParser)
 
 // se nao for nenhuma rota acima, gerar um erro
