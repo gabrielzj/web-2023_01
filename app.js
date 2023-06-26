@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 const bodyParser = require('body-parser')
 
-
+const indexRouter = require('./routes/index')
 const authRouter = require('./routes/auth')
 // const usersRouter = require('./routes/users')
 
@@ -32,6 +32,7 @@ app.use(express.static(path.join(__dirname, '/public'))); //server pra reconhece
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 
+app.use('/home', indexRouter)
 app.use('/auth', authRouter)
 //Rota que fazem parte de /users
 // app.use('/users', usersRouter)

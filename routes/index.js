@@ -1,8 +1,9 @@
-const express = require('express');
-const router = express.Router();
+const express = require('express')
+const Router = express.Router()
 
-router.get('/', function(req, res, next) {
-  res.render('index');
-});
+//rota raiz
+Router.get('/', (req, res) => {
+    res.send('<p>Estou na Home</p>')
+})
 
-module.exports = router;
+module.exports = Router
