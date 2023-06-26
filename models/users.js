@@ -1,12 +1,5 @@
 const db = require('./database')
 
-/**
- * A partir daqui cria a tabela usuario, porem colocando esse código
- * em um arquivo user.js ele não reconhece e da erro ao acessar o banco
- * 
- * Toda vez que for executado o app.js e por consequencia executar o database.js
- * a tabela vai ser dropada e criada, os dados serão perdidos.
- */
 const User = db.sequelize.define('usuarios', {
     nome:{
         type: db.Sequelize.STRING,    
