@@ -9,15 +9,15 @@
                     <form id="formCadastro" class="form" action="/auth/signup" method="POST">
                         <div class="mb-3">
                             <label for="inputNome" class="form-label">Nome </label>
-                            <input type="email" class="form-control" id="inputNome" placeholder="Nome">
+                            <input type="" class="form-control" id="inputNome" name='CadNome' placeholder="Nome">
                         </div>
                         <div class="mb-3">
                             <label for="inputEmail" class="form-label">Email </label>
-                            <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                            <input type="email" class="form-control" id="inputEmail" nome = 'CadEmail' placeholder="Email">
                         </div>
                         <div class="mb-3">
                             <label for="inputPassword" class="form-label">Senha</label>
-                            <input type="password" class="form-control" id="inputPassword" placeholder="Senha">
+                            <input type="password" class="form-control" id="inputPassword" name='CadSenha' placeholder="Senha">
                         </div>
                         {{! <div id="emailHelp" class="form-text">Fazer cadastro</div> }}
                         <button type="submit" class="btn btn-primary">Cadastrar</button>
