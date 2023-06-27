@@ -1,6 +1,7 @@
 const express = require('express')
 const Router = express.Router()
 const User = require('../models/users')
+const bcrypt = require('bcrypt')
 /**
  * Existe uma rota /auth
  */
@@ -16,21 +17,50 @@ Router.get('/signup', (req, res) =>{
 })
 
 Router.post('/login', (req, res) =>{
-    console.log(User)
+    const {LoginEmail, LoginSenha} = req.body
 
-    res.send('Email:'+req.body.LoginEmail+'\tSenha:'+req.body.LoginSenha)
+    User.findOne({ where: {email: LoginEmail} })
+        .then((user) => {
+            if(!user){
+                res.send('Login failed: User not found');
+                return
+            }
+
+            bcrypt.compare(LoginSenha, user.senha, (err ,result) => {
+                if(result) {
+                    res.send('Login success')
+                } else {
+                    res.send('Login failed: Incorrect password')
+                }
+            })
+        })
+        .catch((error) => {
+            res.send('Ah error ocurred:' + error)
+        })
 })
 
 Router.post('/signup', (req, res) =>{
-      
-    User.create({
-        nome: req.body.CadNome,
-        email: req.body.CadEmail,
-        senha: req.body.CadSenha
+
+    const { CadNome, CadEmail, CadSenha} = req.body
+
+    bcrypt.hash(CadSenha, 10, (err, hashedPassword) => {
+        if (err) {
+            res.send('Error occured:' + error)
+            return
+        }
+    //assincrono
+    User.create({ 
+        nome: CadNome,
+        email: CadEmail,
+        senha: hashedPassword,
     }).then(function(){
-       res.send("Usuario criado") 
+       console.log('Usuario criado')
+       res.redirect('/auth/login')
+       
     }).catch(function(erro){
         res.send("Houve um erro"+ erro)
+    })
+    
     })
 })
 

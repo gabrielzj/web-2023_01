@@ -3,7 +3,7 @@ const Router = express.Router()
 
 //rota raiz
 Router.get('/', (req, res) => {
-    res.send('<p>Estou na Home</p>')
+    res.send('<p>Bem vindo</p>')
 })
 
 module.exports = Router

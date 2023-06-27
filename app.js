@@ -32,7 +32,7 @@ app.use(express.static(path.join(__dirname, '/public'))); //server pra reconhece
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 
-app.use('/home', indexRouter)
+app.use(indexRouter)
 app.use('/auth', authRouter)
 //Rota que fazem parte de /users
 // app.use('/users', usersRouter)
