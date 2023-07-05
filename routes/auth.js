@@ -2,40 +2,36 @@ const express = require('express')
 const Router = express.Router()
 const User = require('../models/users')
 const bcrypt = require('bcrypt')
+
 /**
  * Existe uma rota /auth
  */
-//rota login > rendereiza template de login
-Router.get('/login', (req, res) => {
-    res.render('login')
-    // console.log('esta dentro de /auth/login')
-    // console.log(req.body.email, req.body.password)
-})
-//rota cadastro > renderiza template de cadastro
-Router.get('/signup', (req, res) =>{
-    res.render('cadastro')
-})
-
 Router.post('/login', (req, res) =>{
     const {LoginEmail, LoginSenha} = req.body
 
     User.findOne({ where: {email: LoginEmail} })
         .then((user) => {
             if(!user){
-                res.send('Login failed: User not found');
+                res.status(200).json({
+                    message: 'Login failed: User not found',
+                })
                 return
             }
 
             bcrypt.compare(LoginSenha, user.senha, (err ,result) => {
                 if(result) {
-                    res.send('Login success')
+                    res.status(200).json({
+                        message: 'Login success',
+                    })
                 } else {
-                    res.send('Login failed: Incorrect password')
+                    res.status(200).json({
+                        message: 'Login failed: Incorrect password',
+                    })
                 }
             })
         })
         .catch((error) => {
-            res.send('Ah error ocurred:' + error)
+            res.send('Ah, error occurred!' + error)
         })
 })
 
@@ -45,22 +41,25 @@ Router.post('/signup', (req, res) =>{
 
     bcrypt.hash(CadSenha, 10, (err, hashedPassword) => {
         if (err) {
-            res.send('Error occured:' + error)
+            res.status(200).json({
+                message: 'Error occured:' + err,
+            })
             return
         }
-    //assincrono
-    User.create({ 
-        nome: CadNome,
-        email: CadEmail,
-        senha: hashedPassword,
-    }).then(function(){
-       console.log('Usuario criado')
-       res.redirect('/auth/login')
-       
-    }).catch(function(erro){
-        res.send("Houve um erro"+ erro)
-    })
-    
+        //assincrono
+        User.create({ 
+            nome: CadNome,
+            email: CadEmail,
+            senha: hashedPassword,
+        }).then(function(){
+            res.status(200).json({
+                message: 'Usuario criado',
+            })
+        }).catch(function(erro){
+            res.status(200).json({
+                message: 'Houve um erro: ' + erro,
+            })
+        })
     })
 })
 
