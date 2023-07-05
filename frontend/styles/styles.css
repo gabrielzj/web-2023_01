@@ -1,0 +1,19 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+body.index {
+    block-size: 100%;
+    display: grid;
+    place-content: center;
+}
+
+.form{
+    width: 300px;
+    margin-top: 40%;
+}
